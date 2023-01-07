@@ -10,7 +10,6 @@ import UIKit
 class Router {
     private var window: UIWindow!
     private weak var assembly: Assemblyable!
-    
     init(assembly: Assemblyable) {
         self.assembly = assembly
     }
@@ -27,4 +26,6 @@ extension Router: Routerable {
         window.rootViewController = assembly.create(viewController: .appLoad)
         window.makeKeyAndVisible()
     }
+    
+    //func route(to )
 }

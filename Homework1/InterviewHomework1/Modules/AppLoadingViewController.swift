@@ -9,6 +9,17 @@ import UIKit
 
 class AppLoadingViewController: UIViewController {
     
+    private weak var router: Routerable!
+    
+    init(router: Routerable) {
+        super.init(nibName: nil, bundle: nil)
+        self.router = router
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -16,6 +27,7 @@ class AppLoadingViewController: UIViewController {
         DispatchQueue.global(qos: .userInitiated).async {
             let miliseconds = UInt32.random(in: 500_000...1_000_000)
             usleep(miliseconds)
+            print(self.router)
         }
     }
     

@@ -14,6 +14,7 @@ class Core {
     init() {
         assembly = Assembly()
         router = Router(assembly: assembly)
+        assembly.set(router: router)
     }
     
     func scene(_ scene: UIScene,
@@ -22,3 +23,4 @@ class Core {
         router.renderRootController(scene: scene, willConnectTo: session, options: connectionOptions)
     }
 }
+

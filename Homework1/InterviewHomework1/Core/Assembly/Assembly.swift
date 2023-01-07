@@ -8,7 +8,10 @@
 import UIKit
 
 class Assembly {
-    
+    private weak var router: Routerable!
+    func set(router: Routerable) {
+        self.router = router
+    }
 }
 
 // MARK: Assemblyable
@@ -19,7 +22,7 @@ extension Assembly: Assemblyable {
         case .root:
             return RootViewController()
         case .appLoad:
-            return AppLoadingViewController()
+            return AppLoadingViewController(router: router)
         }
     }
 }
