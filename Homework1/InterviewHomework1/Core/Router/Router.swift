@@ -24,7 +24,7 @@ extension Router: Routerable {
                               options connectionOptions: UIScene.ConnectionOptions) {
         window = UIWindow(windowScene: UIWindowScene(session: session,
                                                      connectionOptions: connectionOptions))
-        window.rootViewController = assembly.create(viewController: .root)
+        window.rootViewController = assembly.create(viewController: .appLoad)
         window.makeKeyAndVisible()
     }
 }

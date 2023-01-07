@@ -18,6 +18,8 @@ extension Assembly: Assemblyable {
         switch viewController {
         case .root:
             return RootViewController()
+        case .appLoad:
+            return AppLoadingViewController()
         }
     }
 }

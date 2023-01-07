@@ -18,5 +18,5 @@ struct AssemblyElement {
 // MARK: ViewController
 
 enum ViewControllerType {
-    case root
+    case root, appLoad
 }
