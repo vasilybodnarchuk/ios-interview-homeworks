@@ -18,6 +18,14 @@ class Router {
 // MARK: Routerable
 
 extension Router: Routerable {
+    
+    func navigate(path: RouterPath) {
+        switch path {
+        case .setRoot(let type):
+            window.rootViewController = delegate.create(viewController: type)
+        }
+    }
+    
     func renderRootController(scene: UIScene,
                               willConnectTo session: UISceneSession,
                               options connectionOptions: UIScene.ConnectionOptions) {

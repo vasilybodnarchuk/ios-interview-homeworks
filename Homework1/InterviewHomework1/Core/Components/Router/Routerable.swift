@@ -11,4 +11,9 @@ protocol Routerable: AnyObject {
     func renderRootController(scene: UIScene,
                               willConnectTo session: UISceneSession,
                               options connectionOptions: UIScene.ConnectionOptions)
+    func navigate(path: RouterPath)
+}
+
+enum RouterPath {
+    case setRoot(type: ViewControllerType)
 }

@@ -9,7 +9,17 @@ import UIKit
 
 class RootViewController: UIViewController {
     
+    private var router: Routerable!
     private weak var tableView: UITableView!
+    
+    init(router: Routerable) {
+        super.init(nibName: nil, bundle: nil)
+        self.router = router
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

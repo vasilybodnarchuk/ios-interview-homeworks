@@ -24,10 +24,12 @@ class AppLoadingViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(createActivityIndicator())
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let miliseconds = UInt32.random(in: 500_000...1_000_000)
             usleep(miliseconds)
-            print(self.router)
+            DispatchQueue.main.async {
+                self?.router.navigate(path: .setRoot(type: .root))
+            }
         }
     }
     
