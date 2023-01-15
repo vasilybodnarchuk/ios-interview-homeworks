@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B82EC2292973BFD100C2B7B3 /* RouterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82EC2282973BFD100C2B7B3 /* RouterDelegate.swift */; };
+		B82EC22B2973C32800C2B7B3 /* Coreable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82EC22A2973C32800C2B7B3 /* Coreable.swift */; };
 		B871D6CF2969289D0097CC5E /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D6CE2969289D0097CC5E /* Core.swift */; };
 		B871D6D129692C210097CC5E /* AppLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D6D029692C210097CC5E /* AppLoadingViewController.swift */; };
 		B8D4E88829405AD900956246 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4E88729405AD900956246 /* AppDelegate.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		B82EC2282973BFD100C2B7B3 /* RouterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterDelegate.swift; sourceTree = "<group>"; };
+		B82EC22A2973C32800C2B7B3 /* Coreable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coreable.swift; sourceTree = "<group>"; };
 		B871D6CE2969289D0097CC5E /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		B871D6D029692C210097CC5E /* AppLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoadingViewController.swift; sourceTree = "<group>"; };
 		B8D4E88429405AD900956246 /* InterviewHomework1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterviewHomework1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +158,7 @@
 			children = (
 				B8D4E8BE2940671300956246 /* Assembly */,
 				B8D4E8B9294063C700956246 /* Router */,
+				B82EC22A2973C32800C2B7B3 /* Coreable.swift */,
 				B871D6CE2969289D0097CC5E /* Core.swift */,
 			);
 			path = Core;
@@ -312,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B871D6D129692C210097CC5E /* AppLoadingViewController.swift in Sources */,
+				B82EC22B2973C32800C2B7B3 /* Coreable.swift in Sources */,
 				B8D4E8BB2940645D00956246 /* Routerable.swift in Sources */,
 				B8D4E88C29405AD900956246 /* RootViewController.swift in Sources */,
 				B82EC2292973BFD100C2B7B3 /* RouterDelegate.swift in Sources */,

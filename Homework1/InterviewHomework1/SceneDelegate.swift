@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //    private lazy var assembly = Assembly()
 //    private lazy var router: Routerable = Router(assembly: assembly)
     
-    private lazy var core = Core()
+    private lazy var core: Coreable = Core()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.

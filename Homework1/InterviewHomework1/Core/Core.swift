@@ -15,7 +15,11 @@ class Core {
         router = Router(delegate: self)
         assembly = Assembly(router: router)
     }
-    
+}
+
+// MARK: Coreable
+
+extension Core: Coreable {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
@@ -23,11 +27,10 @@ class Core {
     }
 }
 
-//
+// MARK: RouterDelegate
 
 extension Core: RouterDelegate {
     func create(viewController: ViewControllerType) -> UIViewController {
         assembly.create(viewController: viewController)
     }
-    
 }
