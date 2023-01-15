@@ -92,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B82EC22C2973C47200C2B7B3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B8D4E8BE2940671300956246 /* Assembly */,
+				B8D4E8B9294063C700956246 /* Router */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		B8D4E87B29405AD900956246 = {
 			isa = PBXGroup;
 			children = (
@@ -156,8 +165,7 @@
 		B8D4E8B8294063BC00956246 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				B8D4E8BE2940671300956246 /* Assembly */,
-				B8D4E8B9294063C700956246 /* Router */,
+				B82EC22C2973C47200C2B7B3 /* Components */,
 				B82EC22A2973C32800C2B7B3 /* Coreable.swift */,
 				B871D6CE2969289D0097CC5E /* Core.swift */,
 			);
