@@ -9,7 +9,7 @@ import UIKit
 
 class Core {
     private var assembly: Assembly!
-    private var router: Routerable!
+    private var router: CoreRouterable!
     
     init() {
         router = Router(delegate: self)

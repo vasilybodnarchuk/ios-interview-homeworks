@@ -25,7 +25,12 @@ extension Router: Routerable {
             window.rootViewController = delegate.create(viewController: type)
         }
     }
-    
+}
+
+
+// MARK: CoreRouterable
+
+extension Router: CoreRouterable {
     func renderRootController(scene: UIScene,
                               willConnectTo session: UISceneSession,
                               options connectionOptions: UIScene.ConnectionOptions) {
@@ -34,6 +39,4 @@ extension Router: Routerable {
         window.rootViewController = delegate.create(viewController: .appLoad)
         window.makeKeyAndVisible()
     }
-    
-    //func route(to )
 }

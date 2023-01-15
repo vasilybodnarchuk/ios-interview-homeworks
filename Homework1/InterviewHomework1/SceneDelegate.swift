@@ -9,9 +9,6 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-//    private lazy var assembly = Assembly()
-//    private lazy var router: Routerable = Router(assembly: assembly)
-    
     private lazy var core: Coreable = Core()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -20,7 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         core.scene(scene, willConnectTo: session, options: connectionOptions)
-//        router.renderRootController(scene: scene, willConnectTo: session, options: connectionOptions)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

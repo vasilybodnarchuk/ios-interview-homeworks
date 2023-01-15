@@ -8,10 +8,13 @@
 import UIKit
 
 protocol Routerable: AnyObject {
+    func navigate(path: RouterPath)
+}
+
+protocol CoreRouterable: Routerable {
     func renderRootController(scene: UIScene,
                               willConnectTo session: UISceneSession,
                               options connectionOptions: UIScene.ConnectionOptions)
-    func navigate(path: RouterPath)
 }
 
 enum RouterPath {

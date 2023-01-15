@@ -101,6 +101,15 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		B82EC22D2973C91800C2B7B3 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B82EC2282973BFD100C2B7B3 /* RouterDelegate.swift */,
+				B8D4E8BA2940645D00956246 /* Routerable.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
 		B8D4E87B29405AD900956246 = {
 			isa = PBXGroup;
 			children = (
@@ -175,9 +184,8 @@
 		B8D4E8B9294063C700956246 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				B8D4E8BA2940645D00956246 /* Routerable.swift */,
+				B82EC22D2973C91800C2B7B3 /* protocols */,
 				B8D4E8BC294064F600956246 /* Router.swift */,
-				B82EC2282973BFD100C2B7B3 /* RouterDelegate.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
