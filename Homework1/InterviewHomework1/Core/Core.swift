@@ -8,13 +8,12 @@
 import UIKit
 
 class Core {
-    private var assembly: Assembly
-    private var router: Routerable
+    private var assembly: Assembly!
+    private var router: Routerable!
     
     init() {
-        assembly = Assembly()
-        router = Router(assembly: assembly)
-        assembly.set(router: router)
+        router = Router(delegate: self)
+        assembly = Assembly(router: router)
     }
     
     func scene(_ scene: UIScene,
@@ -24,3 +23,11 @@ class Core {
     }
 }
 
+//
+
+extension Core: RouterDelegate {
+    func create(viewController: ViewControllerType) -> UIViewController {
+        assembly.create(viewController: viewController)
+    }
+    
+}

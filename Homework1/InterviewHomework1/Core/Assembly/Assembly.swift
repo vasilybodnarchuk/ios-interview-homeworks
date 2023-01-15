@@ -9,7 +9,7 @@ import UIKit
 
 class Assembly {
     private weak var router: Routerable!
-    func set(router: Routerable) {
+    init(router: Routerable) {
         self.router = router
     }
 }

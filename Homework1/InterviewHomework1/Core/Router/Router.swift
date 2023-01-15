@@ -9,9 +9,9 @@ import UIKit
 
 class Router {
     private var window: UIWindow!
-    private weak var assembly: Assemblyable!
-    init(assembly: Assemblyable) {
-        self.assembly = assembly
+    private weak var delegate: RouterDelegate!
+    init(delegate: RouterDelegate) {
+        self.delegate = delegate
     }
 }
 
@@ -23,7 +23,7 @@ extension Router: Routerable {
                               options connectionOptions: UIScene.ConnectionOptions) {
         window = UIWindow(windowScene: UIWindowScene(session: session,
                                                      connectionOptions: connectionOptions))
-        window.rootViewController = assembly.create(viewController: .appLoad)
+        window.rootViewController = delegate.create(viewController: .appLoad)
         window.makeKeyAndVisible()
     }
     
