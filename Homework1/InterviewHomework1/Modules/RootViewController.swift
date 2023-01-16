@@ -9,7 +9,7 @@ import UIKit
 
 class RootViewController: UIViewController {
     
-    private var router: Routerable!
+    private weak var router: Routerable!
     private weak var tableView: UITableView!
     
     init(router: Routerable) {
