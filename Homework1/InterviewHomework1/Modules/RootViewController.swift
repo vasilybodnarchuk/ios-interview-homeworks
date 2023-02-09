@@ -11,10 +11,12 @@ class RootViewController: UIViewController {
     
     private weak var router: Routerable!
     private weak var tableView: UITableView!
+    var repo = ItunesRepository()
     
     init(router: Routerable) {
         super.init(nibName: nil, bundle: nil)
         self.router = router
+        
     }
     
     required init?(coder: NSCoder) {
