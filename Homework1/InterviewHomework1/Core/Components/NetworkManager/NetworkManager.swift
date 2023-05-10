@@ -7,63 +7,121 @@
 
 import Foundation
 
+// MARK: NetworkManager
+
 class NetworkManager {
-    private let session = URLSession.shared
-    private let queue = DispatchQueue(label: "NetworkManagerQueue")
-    
-    init() { }
-    
-    private func createError(message: String, code: Int) -> Error {
-        return NSError(domain: "dataManager", code: code, userInfo: ["message": message ])
-    }
-    
-    enum NetworkError: Error {
-        case dataTask(error: Error)
-        case emptyData, incorrectDictionaryType
-        case jsonSerialization(error: Error)
-        case canNotBeCompleted
-    }
-    
-    func make(request: URLRequest,
-              completion: @escaping (Result<[String: Any], NetworkError>) -> Void) {
-        let task = session.dataTask(with: request) { [weak self] data, response, error in
-            self?.queue.async {
-                guard let self = self else {
-                    completion(.failure(.canNotBeCompleted))
-                    return
-                }
-                completion(self.process(data: data, response: response, error: error))
+    private func data(from request: URLRequest,
+                      session: URLSession,
+                      completion: @escaping (Result<Data, NetworkManagerError>) -> Void) {
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(.dataTask(error: error)))
+                return
             }
+            guard let data = data else {
+                completion(.failure(.emptyData))
+                return
+            }
+            completion(.success(data))
         }
         task.resume()
-    }
-    
-    private func process(data: Data?,
-                         response: URLResponse?,
-                         error: Error?) -> Result<[String: Any], NetworkError> {
-        if let error = error {
-            return .failure(.dataTask(error: error))
-        }
-        
-        guard let data = data else {
-            return .failure(.emptyData)
-        }
-        
-        do {
-            guard let json = try JSONSerialization.jsonObject(with: data,
-                                                              options: .mutableContainers) as? [String: Any] else {
-                return .failure(.incorrectDictionaryType)
-            }
-            return .success(json)
-            
-        } catch let error {
-            return .failure(.jsonSerialization(error: error))
-        }
     }
 }
 
 // MARK: NetworkManagerable
 
-extension NetworkManager: NetworkManagerable {
+extension NetworkManager: NetworkManagerable { }
+
+
+// MARK: Receive Codable
+
+extension NetworkManager {
+    private func codable<Value>(_ type: Value.Type,
+                                from data: Data) -> Result<Value, NetworkManagerError>
+    where Value : Decodable, Value : Encodable {
+        do {
+            let codableValue = try JSONDecoder().decode(Value.self, from: data)
+            return .success(codableValue)
+        } catch let error {
+            return .failure(.jsonDecoding(error: error))
+        }
+    }
     
+    func codable<Value>(_ type: Value.Type,
+                        from request: URLRequest,
+                        session: URLSession,
+                        completion: @escaping (Result<Value, NetworkManagerError>) -> Void)
+    where Value : Decodable, Value : Encodable {
+        data(from: request, session: session) { [weak self] result in
+            guard let self = self else {
+                completion(.failure(.networkMangerIsNotExists))
+                return
+            }
+            switch result {
+            case let .success(data):
+                return completion(self.codable(type, from: data))
+            case let .failure(error):
+                return completion(.failure(error))
+            }
+        }
+    }
+    
+    func codable<Value>(_ type: Value.Type,
+                        from request: URLRequest,
+                        session: URLSession) async -> Result<Value, NetworkManagerError> where Value : Decodable, Value : Encodable {
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            return codable(type, from: data)
+        } catch let error {
+            return .failure(.dataTask(error: error))
+        }
+    }
+}
+
+// MARK: Receive Dictionary
+
+extension NetworkManager {
+    
+    private func dictionary(from data: Data,
+                            jsonReadingOptions: JSONSerialization.ReadingOptions) -> Result<[String: Any], NetworkManagerError> {
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: jsonReadingOptions)
+            guard let dictionary = json as? [String: Any] else {
+                return .failure(.castingError(value: json, isNot: [String: Any].self))
+            }
+            return .success(dictionary)
+            
+        } catch let error {
+            return .failure(.jsonSerialization(error: error))
+        }
+    }
+    
+    func dictionary(from request: URLRequest,
+                    session: URLSession = .shared,
+                    jsonReadingOptions: JSONSerialization.ReadingOptions = .mutableContainers,
+                    completion: @escaping (Result<[String: Any], NetworkManagerError>) -> Void) {
+        data(from: request, session: session) { [weak self] result in
+            guard let self = self else {
+                completion(.failure(.networkMangerIsNotExists))
+                return
+            }
+            switch result {
+            case let .success(data):
+                return completion(self.dictionary(from: data, jsonReadingOptions: jsonReadingOptions))
+            case let .failure(error):
+                return completion(.failure(error))
+            }
+        }
+    }
+    
+    func dictionary(from request: URLRequest,
+                    session: URLSession,
+                    jsonReadingOptions: JSONSerialization.ReadingOptions) async -> Result<[String: Any], NetworkManagerError> {
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            return self.dictionary(from: data, jsonReadingOptions: jsonReadingOptions)
+        } catch let error {
+            return .failure(.dataTask(error: error))
+        }
+    }
 }

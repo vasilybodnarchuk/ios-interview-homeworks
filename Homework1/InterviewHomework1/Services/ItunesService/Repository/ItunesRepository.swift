@@ -21,7 +21,7 @@ class ItunesRepository {
     func searchRequest(term: String, closure: ((_ json: [String: Any]?, _ error: Error?)->Void)?) {
         let url = URL(string: "https://itunes.apple.com/search?term=\(term.replacingOccurrences(of: " ", with: "+"))")
         let request = URLRequest(url: url!)
-        networkManager.make(request: request) { result in
+        networkManager.dictionary(from: request) { result in
             print("!!!! \(result)")
         }
     }
