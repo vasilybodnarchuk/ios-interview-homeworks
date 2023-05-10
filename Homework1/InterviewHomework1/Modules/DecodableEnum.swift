@@ -55,3 +55,14 @@ extension DecodableEnum: Encodable {
         // TODO:!!!!
     }
 }
+
+// MARK: CustomStringConvertible
+
+extension DecodableEnum: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case let .error(error): return "\(error)"
+        case let .value(value): return "\(value)"
+        }
+    }
+}

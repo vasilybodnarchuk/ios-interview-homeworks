@@ -37,3 +37,14 @@ extension ItunesElement {
         // TODO:!!!!
     }
 }
+
+// MARK: CustomStringConvertible
+
+extension ItunesElement: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case let .error(error): return "DecodingError.\(error)"
+        case let .audioVideo(value): return "\(value)"
+        }
+    }
+}
