@@ -24,5 +24,8 @@ class ItunesRepository {
         networkManager.dictionary(from: request) { result in
             print("!!!! \(result)")
         }
+        networkManager.codable(ItunesResponse.self ,from: request) { result in
+            print("!!!! \(result)")
+        }
     }
 }
