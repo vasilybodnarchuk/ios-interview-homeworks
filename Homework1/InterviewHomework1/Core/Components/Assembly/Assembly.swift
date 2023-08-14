@@ -10,8 +10,7 @@ import UIKit
 class Assembly {
     private weak var router: Routerable!
     private var itunesService: ItunesServiceable!
-    private var networkManager: NetworkManagerable!
-
+    private lazy var coreAssembly: CoreAssemblyable = CoreAssembly()
     init(router: Routerable) {
         self.router = router
     }
@@ -42,17 +41,6 @@ private extension Assembly {
     }
     
     func createItunesRepository() -> ItunesRepositoryable {
-        ItunesRepository(networkManager: getNetworkManager())
-    }
-}
-
-// MARK: NetworkManager
-
-private extension Assembly {
-    func getNetworkManager() -> NetworkManagerable {
-        if networkManager == nil {
-            networkManager = NetworkManager()
-        }
-        return networkManager
+        ItunesRepository(networkManager: coreAssembly.getNetworkManager())
     }
 }
