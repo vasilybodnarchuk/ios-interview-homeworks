@@ -9,22 +9,34 @@ import UIKit
 
 class Router {
     private var window: UIWindow!
-    private weak var assembly: Assemblyable!
-    
-    init(assembly: Assemblyable) {
-        self.assembly = assembly
+    private weak var delegate: RouterDelegate!
+    init(delegate: RouterDelegate) {
+        self.delegate = delegate
     }
 }
 
 // MARK: Routerable
 
 extension Router: Routerable {
+    
+    func navigate(path: RouterPath) {
+        switch path {
+        case .setRoot(let type):
+            window.rootViewController = delegate.create(viewController: type)
+        }
+    }
+}
+
+
+// MARK: CoreRouterable
+
+extension Router: CoreRouterable {
     func renderRootController(scene: UIScene,
                               willConnectTo session: UISceneSession,
                               options connectionOptions: UIScene.ConnectionOptions) {
         window = UIWindow(windowScene: UIWindowScene(session: session,
                                                      connectionOptions: connectionOptions))
-        window.rootViewController = assembly.create(viewController: .root)
+        window.rootViewController = delegate.create(viewController: .appLoad)
         window.makeKeyAndVisible()
     }
 }
