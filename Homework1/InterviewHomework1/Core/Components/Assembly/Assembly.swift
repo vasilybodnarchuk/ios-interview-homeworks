@@ -9,10 +9,11 @@ import UIKit
 
 class Assembly {
     private weak var router: Routerable!
-    private var itunesService: ItunesServiceable!
     private lazy var coreAssembly: CoreAssemblyable = CoreAssembly()
+    private var serviceAssembly: ServiceAssemblyable!
     init(router: Routerable) {
         self.router = router
+        serviceAssembly = ServiceAssembly(delegate: self)
     }
 }
 
@@ -23,24 +24,17 @@ extension Assembly: Assemblyable {
         switch viewController {
         case .root:
             return RootViewController(router: router,
-                                      itunesService: getItunesService())
+                                      itunesService: serviceAssembly.getItunesService())
         case .appLoad:
             return AppLoadingViewController(router: router)
         }
     }
 }
 
-// MARK: Itunes Service and Repository
+// MARK:  ServiceAssemblyDelegate
 
-private extension Assembly {
-    func getItunesService() -> ItunesServiceable {
-        if itunesService == nil {
-            itunesService = ItunesService(repository: createItunesRepository())
-        }
-        return itunesService
-    }
-    
-    func createItunesRepository() -> ItunesRepositoryable {
-        ItunesRepository(networkManager: coreAssembly.getNetworkManager())
+extension Assembly: ServiceAssemblyDelegate {
+    func getNetworkManager() -> NetworkManagerable {
+        coreAssembly.getNetworkManager()
     }
 }

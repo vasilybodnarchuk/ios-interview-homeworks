@@ -7,6 +7,9 @@
 
 import Foundation
 
+// MARK: CoreAssemblyable
+
+
 protocol CoreAssemblyable {
     func getNetworkManager() -> NetworkManagerable
 }
@@ -15,7 +18,7 @@ class CoreAssembly {
     private var networkManager: NetworkManagerable!
 }
 
-// MARK: CoreAssemblyable
+// MARK: CoreAssemblyable confirmation
 
 extension CoreAssembly: CoreAssemblyable {
     func getNetworkManager() -> NetworkManagerable {
