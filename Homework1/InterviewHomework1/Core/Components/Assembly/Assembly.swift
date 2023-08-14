@@ -10,6 +10,8 @@ import UIKit
 class Assembly {
     private weak var router: Routerable!
     private var itunesService: ItunesServiceable!
+    private var networkManager: NetworkManagerable!
+
     init(router: Routerable) {
         self.router = router
     }
@@ -29,20 +31,28 @@ extension Assembly: Assemblyable {
     }
 }
 
-// MARK: Create/Get services
+// MARK: Itunes Service and Repository
 
 private extension Assembly {
     func getItunesService() -> ItunesServiceable {
-        if let itunesService = itunesService {
-            return itunesService
-        } else {
-            let itunesService = ItunesService(repository: createItunesRepository())
-            self.itunesService = itunesService
-            return itunesService
+        if itunesService == nil {
+            itunesService = ItunesService(repository: createItunesRepository())
         }
+        return itunesService
     }
     
     func createItunesRepository() -> ItunesRepositoryable {
-        ItunesRepository()
+        ItunesRepository(networkManager: getNetworkManager())
+    }
+}
+
+// MARK: NetworkManager
+
+private extension Assembly {
+    func getNetworkManager() -> NetworkManagerable {
+        if networkManager == nil {
+            networkManager = NetworkManager()
+        }
+        return networkManager
     }
 }

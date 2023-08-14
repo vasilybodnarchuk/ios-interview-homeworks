@@ -10,8 +10,9 @@ import Foundation
 class ItunesRepository {
     
     private let queue = DispatchQueue(label: "ItunesRepository")
-    private lazy var networkManager = NetworkManager()
-    init () {
+    private weak var networkManager: NetworkManagerable!
+    init (networkManager: NetworkManagerable) {
+        self.networkManager = networkManager
         searchRequest(term: "matrix") { json, error in
             print("!!!!! \(json)")
         }
