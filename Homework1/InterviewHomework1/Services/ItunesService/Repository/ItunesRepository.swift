@@ -29,3 +29,7 @@ class ItunesRepository {
         }
     }
 }
+
+// MARK: ItunesRepositoryable
+
+extension ItunesRepository: ItunesRepositoryable {}
